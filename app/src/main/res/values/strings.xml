@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">My Music Player First</string>
+    <string name="search_icon">Search</string>
+    <string name="action_title">Music Player</string>
+</resources>
