@@ -7,35 +7,6 @@
     tools:context=".MainActivity"
     android:background="@drawable/gradient_background">
 
-    <!--
-    <TextView
-        android:id="@+id/songs_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="#CCCCCC"
-        android:text="SONGS"
-        android:textSize="20dp"
-        android:textStyle="bold"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:padding="10dp"/>
-
-    <TextView
-        android:id="@+id/no_songs_found"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="#CCCCCC"
-        android:text="NO SONGS FOUND"
-        android:textSize="20dp"
-        android:textStyle="bold"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:padding="10dp"
-        android:visibility="gone"/>
-    -->
-
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appbar"
         android:layout_width="0dp"
