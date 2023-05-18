@@ -2,7 +2,7 @@ package com.viss.mymusicplayerfirst;
 
 import android.media.MediaPlayer;
 
-public class MyMediaPlayer {
+public class MyMediaPlayer extends MediaPlayer{
     static MediaPlayer instance;
 
     public static MediaPlayer getInstance() {

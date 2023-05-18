@@ -1,6 +1,7 @@
 package com.viss.mymusicplayerfirst;
 
 import android.annotation.SuppressLint;
+import android.graphics.Typeface;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.res.ResourcesCompat;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -39,6 +41,11 @@ public class MusicPlayerActivity extends AppCompatActivity {
         nextBtn = findViewById(R.id.next);
         prevBtn = findViewById(R.id.previous);
         musicIcon = findViewById(R.id.music_icon);
+
+        Typeface mediumFont = ResourcesCompat.getFont(this, R.font.gothammedium);
+        titleTv.setTypeface(mediumFont);
+        currentTimeTv.setTypeface(mediumFont);
+        totalTimeTv.setTypeface(mediumFont);
 
         titleTv.setSelected(true);
 
@@ -83,6 +90,8 @@ public class MusicPlayerActivity extends AppCompatActivity {
 
             }
         });
+
+        mediaPlayer.setOnCompletionListener(mp -> playNextSong());
     }
 
     void setResourcesWithMusic() {
@@ -139,9 +148,16 @@ public class MusicPlayerActivity extends AppCompatActivity {
     @SuppressLint("DefaultLocale")
     public static String convertToMMS(String duration) {
         long millis = Long.parseLong(duration);
-        return String.format("%02d:%02d",
-                TimeUnit.MILLISECONDS.toMinutes(millis) % TimeUnit.HOURS.toMinutes(1),
-                TimeUnit.MILLISECONDS.toSeconds(millis) % TimeUnit.MINUTES.toSeconds(1));
-    }
 
+        int minutes = (int) TimeUnit.MILLISECONDS.toMinutes(millis);
+        int seconds = (int) TimeUnit.MILLISECONDS.toSeconds(millis) % 60;
+
+        if (minutes > 60) {
+            int hours = minutes / 60;
+            minutes %= 60;
+            return String.format("%02d:%02d:%02d", hours, minutes, seconds);
+        }
+
+        return String.format("%02d:%02d", minutes, seconds);
+    }
 }

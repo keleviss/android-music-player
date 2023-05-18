@@ -1,5 +1,6 @@
 package com.viss.mymusicplayerfirst;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -15,6 +16,7 @@ import androidx.core.content.res.ResourcesCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
 
 public class SongListAdapter extends RecyclerView.Adapter<SongListAdapter.ViewHolder>{
 
@@ -36,8 +38,10 @@ public class SongListAdapter extends RecyclerView.Adapter<SongListAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Song songData =songsList.get(position);
+        Song songData = songsList.get(position);
         holder.titleTextView.setText(songData.getTitle());
+        String duration = formatDuration(songData.getDuration());
+        holder.durationTextView.setText(duration);
 
         if (MyMediaPlayer.currentIndex == position) {
             holder.titleTextView.setTextColor(Color.parseColor("#FF00E9FE"));
@@ -64,16 +68,37 @@ public class SongListAdapter extends RecyclerView.Adapter<SongListAdapter.ViewHo
 
         TextView titleTextView;
         ImageView iconImageView;
+        TextView durationTextView;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
             titleTextView = itemView.findViewById(R.id.titleView);
             iconImageView = itemView.findViewById(R.id.artworkView);
+            durationTextView = itemView.findViewById(R.id.durationView);
             titleTextView.setSelected(true);
 
-            Typeface customFont = ResourcesCompat.getFont(itemView.getContext(), R.font.gothammedium);
-            titleTextView.setTypeface(customFont);
+            Typeface mediumFont = ResourcesCompat.getFont(itemView.getContext(), R.font.gothammedium);
+            Typeface lightFont = ResourcesCompat.getFont(itemView.getContext(), R.font.gothamlight);
+            titleTextView.setTypeface(mediumFont);
+            durationTextView.setTypeface(lightFont);
         }
     }
+
+    @SuppressLint("DefaultLocale")
+    public String formatDuration (String duration) {
+        long millis = Long.parseLong(duration);
+
+        int minutes = (int) TimeUnit.MILLISECONDS.toMinutes(millis);
+        int seconds = (int) TimeUnit.MILLISECONDS.toSeconds(millis) % 60;
+
+        if (minutes > 60) {
+            int hours = minutes / 60;
+            minutes %= 60;
+            return String.format("%02d:%02d:%02d", hours, minutes, seconds);
+        }
+
+        return String.format("%02d:%02d", minutes, seconds);
+    }
+
 }
