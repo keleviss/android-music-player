@@ -91,7 +91,6 @@ public class MusicPlayerActivity extends AppCompatActivity {
             }
         });
 
-        mediaPlayer.setOnCompletionListener(mp -> playNextSong());
     }
 
     void setResourcesWithMusic() {
